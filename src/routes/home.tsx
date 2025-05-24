@@ -168,189 +168,44 @@ export default function HomePage() {
       </header>
 
       <main className="container mx-auto py-8 px-4">
-        {/* Welcome section */}
-        <section className="mb-12">
-          <div className="rounded-lg bg-muted p-8">
-            <h1 className="text-3xl font-bold mb-4">Welcome to Your Fresh Meats Dashboard</h1>
-            <p className="text-lg mb-6">
-              Your farm-to-table journey starts here. Browse our premium cuts, manage your
-              subscription, and track your deliveries all in one place.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg">Shop Now</Button>
-              <Button variant="outline" size="lg">Manage Subscription</Button>
-            </div>
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="mb-8">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-16 h-16 mx-auto text-primary mb-4"
+            >
+              <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+              <path d="M7.5 12h9" />
+              <path d="M7.5 9h4.5" />
+              <path d="M7.5 15h6" />
+            </svg>
+            <h1 className="text-4xl font-bold mb-4">We're Getting Ready!</h1>
           </div>
-        </section>
-
-        {/* Main dashboard grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left column */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Upcoming deliveries */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Upcoming Deliveries</CardTitle>
-                <CardDescription>
-                  Track your fresh meat deliveries
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                {upcomingDeliveries.length > 0 ? (
-                  <div className="space-y-4">
-                    {upcomingDeliveries.map(delivery => (
-                      <div key={delivery.id} className="flex flex-col sm:flex-row justify-between bg-muted p-4 rounded-lg">
-                        <div>
-                          <h3 className="font-medium">Delivery on {delivery.date}</h3>
-                          <p className="text-sm text-muted-foreground">{delivery.items} items • {delivery.status}</p>
-                        </div>
-                        <Button size="sm" className="mt-2 sm:mt-0">Track Order</Button>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center py-6">
-                    <p className="text-muted-foreground mb-4">No upcoming deliveries</p>
-                    <Button>Schedule a Delivery</Button>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-
-            {/* Recommended for you */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Recommended for You</CardTitle>
-                <CardDescription>
-                  Based on your preferences
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {products.slice(0, 2).map(product => (
-                    <div key={product.id} className="border rounded-lg overflow-hidden">
-                      <div className="aspect-video w-full overflow-hidden">
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="p-4">
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <h3 className="font-medium">{product.name}</h3>
-                            <p className="text-sm text-muted-foreground">{product.farm}</p>
-                          </div>
-                          <div className="text-right">
-                            <p className="font-medium">${product.price}</p>
-                            <p className="text-xs text-muted-foreground">{product.weight}</p>
-                          </div>
-                        </div>
-                        <Button className="w-full mt-4" variant="outline">Add to Cart</Button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Right column */}
-          <div className="space-y-6">
-            {/* Your preferences */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Your Preferences</CardTitle>
-                <CardDescription>Customize your subscription</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <h3 className="font-medium mb-2">Preferred Cuts</h3>
-                  <ul className="text-sm space-y-1">
-                    {preferredCuts.length > 0 ? (
-                      preferredCuts.map((cut) => (
-                        <li key={cut} className="flex items-center gap-2">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                            className="w-4 h-4 text-green-600"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                          {cut}
-                        </li>
-                      ))
-                    ) : (
-                      <li className="text-muted-foreground">No preferences set</li>
-                    )}
-                  </ul>
-                </div>
-
-                <Separator />
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <h3 className="font-medium mb-1">Delivery</h3>
-                    <p className="text-sm">
-                      {data.preferences?.quantity || 0} lbs, {" "}
-                      {data.preferences?.frequency === "weekly" 
-                        ? "Weekly" 
-                        : data.preferences?.frequency === "bi-weekly" 
-                        ? "Bi-Weekly" 
-                        : "Monthly"}
-                    </p>
-                  </div>
-                  <div>
-                    <h3 className="font-medium mb-1">Monthly Budget</h3>
-                    <p className="text-sm">${data.preferences?.monthly_budget || "Not set"}</p>
-                  </div>
-                </div>
-
-                <Button variant="outline" size="sm" className="w-full">
-                  Edit Preferences
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Delivery Address */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Delivery Address</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {data.profile ? (
-                  <div>
-                    <p className="text-sm">{data.profile.address_line1}</p>
-                    {data.profile.address_line2 && (
-                      <p className="text-sm">{data.profile.address_line2}</p>
-                    )}
-                    <p className="text-sm">
-                      {data.profile.city}, {data.profile.state} {data.profile.postal_code}
-                    </p>
-
-                    {data.profile.delivery_instructions && (
-                      <div className="mt-2">
-                        <h3 className="text-sm font-medium">Delivery Instructions:</h3>
-                        <p className="text-xs text-muted-foreground">{data.profile.delivery_instructions}</p>
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <p className="text-sm text-muted-foreground">No address on file</p>
-                )}
-
-                <Button variant="outline" size="sm" className="w-full">
-                  Edit Address
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
+          
+          <Card className="border-2 border-primary/20">
+            <CardContent className="pt-6 pb-8 px-6">
+              <p className="text-xl mb-6">
+                Thank you for your interest in Steer Fresh. We're currently preparing our farm-to-table service to bring you the finest quality meats.
+              </p>
+              <p className="text-lg mb-8">
+                We've received your preferences and will contact you as soon as we're ready to launch in your area. In the meantime, feel free to update your profile details.
+              </p>
+              <div className="flex flex-wrap justify-center gap-4">
+                <Button size="lg">Update Preferences</Button>
+                <Button variant="outline" size="lg">Contact Support</Button>
+              </div>
+            </CardContent>
+          </Card>
+          
+          <p className="mt-8 text-muted-foreground">
+            Have questions? Email us at <span className="text-primary">support@steerfresh.com</span>
+          </p>
         </div>
       </main>
     </div>
