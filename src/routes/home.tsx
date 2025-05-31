@@ -147,7 +147,7 @@ export default function HomePage() {
       <header className="border-b">
         <div className="container mx-auto py-4 px-4 flex justify-between items-center">
           <div className="flex items-center space-x-6">
-            <h1 className="text-xl font-bold">Steer Fresh</h1>
+            <h1 className="text-xl font-bold">BeefLink</h1>
             <nav className="hidden md:flex space-x-4">
               <Link to="/home" className="font-medium">Home</Link>
               <Link to="/shop" className="text-muted-foreground">Shop</Link>
@@ -191,7 +191,7 @@ export default function HomePage() {
           <Card className="border-2 border-primary/20">
             <CardContent className="pt-6 pb-8 px-6">
               <p className="text-xl mb-6">
-                Thank you for your interest in Steer Fresh. We're currently preparing our farm-to-table service to bring you the finest quality meats.
+                Thank you for your interest in BeefLink. We're currently preparing our farm-to-table service to bring you the finest quality meats.
               </p>
               <p className="text-lg mb-8">
                 We've received your preferences and will contact you as soon as we're ready to launch in your area. In the meantime, feel free to update your profile details.
@@ -204,7 +204,7 @@ export default function HomePage() {
           </Card>
           
           <p className="mt-8 text-muted-foreground">
-            Have questions? Email us at <span className="text-primary">support@steerfresh.com</span>
+            Have questions? Email us at <span className="text-primary">support@beeflink.com</span>
           </p>
         </div>
       </main>

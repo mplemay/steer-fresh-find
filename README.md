@@ -1,10 +1,10 @@
-# Steer - Farm to Table Beef Marketplace
+# BeefLink - Farm to Table Beef Marketplace
 
 A pre-product launch website for a two-sided marketplace connecting farmers and consumers for farm-to-table beef products.
 
 ## Project Overview
 
-Steer is a modern web application built to facilitate the connection between beef producers and consumers, focusing on quality, transparency, and direct farm-to-table relationships.
+BeefLink is a modern web application built to facilitate the connection between beef producers and consumers, focusing on quality, transparency, and direct farm-to-table relationships.
 
 ## Tech Stack
 
