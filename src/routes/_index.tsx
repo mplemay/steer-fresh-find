@@ -156,7 +156,7 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             <div className="font-serif text-2xl font-bold text-primary">
-              Steer
+              BeefLink
             </div>
             <div className="flex items-center gap-2 md:gap-4">
               <Link to="/sign-up">
@@ -277,7 +277,7 @@ export default function Index() {
               How It Works
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Getting started with Steer is simple. Select your cuts, set your
+              Getting started with BeefLink is simple. Select your cuts, set your
               schedule, and we'll handle the rest.
             </p>
           </div>
@@ -421,14 +421,14 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="font-serif text-2xl font-bold text-primary mb-6">
-              Steer
+              BeefLink
             </div>
             <p className="text-muted-foreground max-w-md mx-auto mb-8">
               Connecting beef lovers directly with local farmers for a more
               sustainable and ethical food system.
             </p>
             <div className="text-sm text-muted-foreground">
-              &copy; {new Date().getFullYear()} Steer. All rights reserved.
+              &copy; {new Date().getFullYear()} BeefLink. All rights reserved.
             </div>
           </div>
         </div>

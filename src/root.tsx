@@ -13,12 +13,12 @@ export function Layout({ children }: PropsWithChildren) {
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Steer | Farm Fresh Beef Direct to Your Door</title>
+        <title>BeefLink | Farm Fresh Beef Direct to Your Door</title>
         <meta
           name="description"
-          content="Steer connects consumers directly with cattle farmers for premium, farm-fresh beef. Join our waitlist today!"
+          content="BeefLink connects consumers directly with cattle farmers for premium, farm-fresh beef. Join our waitlist today!"
         />
-        <meta name="author" content="Steer" />
+        <meta name="author" content="BeefLink" />
         <link rel="icon" type="image/svg+xml" href="/cow.svg" />
         <Meta />
         <Links />
