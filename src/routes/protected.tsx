@@ -1,5 +1,4 @@
 import { createClient } from "@/lib/supabase/server";
-import { hasCompletedOnboarding } from "@/lib/onboarding";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -19,27 +18,44 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     return redirect("/login");
   }
 
-  // Check if user has completed onboarding
-  const onboardingCompleted = await hasCompletedOnboarding(supabase, data.user.id);
-
-  // If onboarding not completed, redirect to onboarding
-  if (!onboardingCompleted) {
-    return redirect("/onboarding");
-  }
-
-  // Get profile data
+  const userId = data.user.id;
+  
+  // Get or create profile data
   const { data: profileData } = await supabase
     .from('profiles')
     .select('*')
-    .eq('id', data.user.id)
-    .single();
+    .eq('id', userId)
+    .maybeSingle()
+    .then(async (result) => {
+      if (!result.data) {
+        // Create a minimal profile if it doesn't exist
+        const { data: newProfile } = await supabase
+          .from('profiles')
+          .upsert({
+            id: userId,
+            onboarding_completed: true,
+            address_line1: '',
+            city: '',
+            state: '',
+            postal_code: ''
+          })
+          .select()
+          .single();
+        return { data: newProfile, error: null };
+      }
+      return result;
+    });
+    
+  if (!profileData) {
+    throw new Error('Failed to load or create profile');
+  }
 
-  // Get user preferences
+  // Get user preferences if they exist
   const { data: preferencesData } = await supabase
     .from("user_preferences")
     .select("*")
-    .eq("user_id", data.user.id)
-    .single();
+    .eq("user_id", userId)
+    .maybeSingle();
 
   return {
     user: data.user,
@@ -143,8 +159,8 @@ export default function ProtectedPage() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <h3 className="font-medium mb-1">Weekly Quantity</h3>
-                  <p className="text-sm">{data.preferences?.weekly_quantity}</p>
+                  <h3 className="font-medium mb-1">Quantity</h3>
+                  <p className="text-sm">{data.preferences?.quantity}</p>
                 </div>
                 <div>
                   <h3 className="font-medium mb-1">Monthly Budget</h3>

@@ -1,5 +1,4 @@
 import { createClient } from "@/lib/supabase/server";
-import { hasCompletedOnboarding } from "@/lib/onboarding";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -36,15 +35,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     };
   }
 
-  // Check if user has completed onboarding
-  const onboardingCompleted = await hasCompletedOnboarding(supabase, data.user.id);
-
-  // If onboarding not completed, redirect to onboarding page
-  if (!onboardingCompleted) {
-    return redirect("/onboarding", { headers });
-  }
-
-  // Otherwise redirect to home page
+  // Redirect to home page after successful login
   return redirect("/home", { headers });
 };
 

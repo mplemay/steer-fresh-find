@@ -1,5 +1,4 @@
 import { createClient } from "@/lib/supabase/server";
-import { hasCompletedOnboarding } from "@/lib/onboarding";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -19,20 +18,32 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     return redirect("/login");
   }
 
-  // Check if user has completed onboarding
-  const onboardingCompleted = await hasCompletedOnboarding(supabase, data.user.id);
-
-  // If onboarding not completed, redirect to onboarding
-  if (!onboardingCompleted) {
-    return redirect("/onboarding");
-  }
-
-  // Get profile data
+  // Get or create profile data
+  const userId = data.user.id;
   const { data: profileData } = await supabase
     .from('profiles')
     .select('*')
-    .eq('id', data.user.id)
-    .single();
+    .eq('id', userId)
+    .single()
+    .then(async ({ data, error }) => {
+      if (error || !data) {
+        // Create a minimal profile if it doesn't exist
+        const { data: newProfile } = await supabase
+          .from('profiles')
+          .upsert({
+            id: userId,
+            onboarding_completed: true,
+            address_line1: '',
+            city: '',
+            state: '',
+            postal_code: ''
+          })
+          .select()
+          .single();
+        return { data: newProfile, error: null };
+      }
+      return { data, error };
+    });
 
   // Get user preferences
 const { data: preferencesData } = await supabase

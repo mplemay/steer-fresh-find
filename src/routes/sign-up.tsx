@@ -51,6 +51,26 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     return { error: error.message };
   }
 
+  // Create a minimal profile for the user
+  const { data: { user } } = await supabase.auth.getUser();
+  if (user?.id) {
+    const { error: profileError } = await supabase
+      .from('profiles')
+      .upsert({
+        id: user.id,
+        onboarding_completed: true,
+        address_line1: '',
+        city: '',
+        state: '',
+        postal_code: ''
+      });
+
+    if (profileError) {
+      console.error('Error creating user profile:', profileError);
+      // Continue anyway since the user can update their profile later
+    }
+  }
+
   return redirect("/sign-up?success");
 };
 
@@ -74,11 +94,18 @@ export default function SignUp() {
                 </CardTitle>
                 <CardDescription>Check your email to confirm</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="space-y-4">
                 <p className="text-sm text-muted-foreground">
                   You've successfully signed up. Please check your email to
                   confirm your account before signing in.
                 </p>
+                <div className="pt-4">
+                  <Link to="/login">
+                    <Button variant="outline" className="w-full">
+                      Go to Login
+                    </Button>
+                  </Link>
+                </div>
               </CardContent>
             </Card>
           ) : (
